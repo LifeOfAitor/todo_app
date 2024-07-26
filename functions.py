@@ -19,3 +19,9 @@ def readfile(filename="todos.txt"):
 def writefile(todos, filename="todos.txt"):
     with open("todos.txt", "w") as file:
         file.writelines(tarea + "\n" for tarea in todos)
+
+
+def loadtodos():
+    todos_list = readfile()
+    todos = [tarea.strip("\n") for tarea in todos_list]
+    return todos

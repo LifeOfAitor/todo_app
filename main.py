@@ -14,9 +14,8 @@ while True:
             todos.append(tarea)
             functions.showresults(todos)
         case "editar":
-            editada = input("tarea editada: ")
-            functions.showresults(todos)
             tarea_editar = int(input("Número de la tarea a editar: "))
+            editada = input("tarea editada: ")
             if functions.tareamodify(tarea_editar, todos):
                 continue
             todos[tarea_editar-1] = editada
