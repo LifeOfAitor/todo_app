@@ -3,11 +3,9 @@ def showresults(todos):
         print(f"{index + 1}.{item}")
 
 
-def tareamodify(tarea, todos):
-    if tarea > len(todos):
-        print("Ese numero no es correcto")
-        return True
-    return False
+def tareamodify(old, new, todos):
+    todos[todos.index(old)] = new
+    writefile(todos)
 
 
 def readfile(filename="todos.txt"):
