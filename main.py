@@ -1,20 +1,10 @@
-def showResults():
-    for index, item in enumerate(todos):
-        print(f"{index + 1}.{item}")
-    return
+import functions
 
-def tareaModify(tarea):
-    if tarea > len(todos):
-        print("Ese numero no es correcto")
-        return True
-    return False
-
-with (open("todos.txt", "r")) as file:
-    todos = file.readlines()
-todos = [tarea.strip("\n") for tarea in todos]
+todos_list = functions.readfile()
+todos = [tarea.strip("\n") for tarea in todos_list]
 if todos:
     print("Tareas pendientes:")
-    showResults()
+    functions.showresults(todos)
 
 while True:
     todo = input("Tareas pendientes: (añadir, editar, completar, salir) ").strip()
@@ -22,24 +12,23 @@ while True:
         case "añadir":
             tarea = input("Introduce la tarea: ")
             todos.append(tarea)
-            showResults()
+            functions.showresults(todos)
         case "editar":
             editada = input("tarea editada: ")
-            showResults()
+            functions.showresults(todos)
             tarea_editar = int(input("Número de la tarea a editar: "))
-            if tareaModify(tarea_editar):
+            if functions.tareamodify(tarea_editar, todos):
                 continue
             todos[tarea_editar-1] = editada
-            showResults()
+            functions.showresults(todos)
         case "completar":
             tarea_completar = int(input("Número de la tarea a completar: "))
-            if tareaModify(tarea_completar):
+            if functions.tareamodify(tarea_completar, todos):
                 continue
             todos.pop(tarea_completar-1)
-            showResults()
+            functions.showresults(todos)
         case "salir":
             # Al salir escribimos de nuevo en el fichero las tareas actualizadas
-            with open("todos.txt", "w") as file:
-                file.writelines(tarea + "\n" for tarea in todos)
+            functions.writefile(todos)
             break
 print("Todo hecho")
