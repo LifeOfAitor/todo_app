@@ -13,13 +13,14 @@ def tareacompletar(todo, todos):
     todos.remove(todo)
     writefile(todos)
 
-def readfile(filename="todos.txt"):
+
+def readfile():
     with (open("todos.txt", "r")) as file:
         todos = file.readlines()
     return todos
 
 
-def writefile(todos, filename="todos.txt"):
+def writefile(todos):
     with open("todos.txt", "w") as file:
         file.writelines(tarea + "\n" for tarea in todos)
 
