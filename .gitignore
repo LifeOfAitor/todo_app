@@ -3,3 +3,4 @@
 /build
 /dist
 todos.txt
+__pycache__/

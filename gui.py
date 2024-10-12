@@ -13,6 +13,23 @@ KEY_STATUS = "status"
 if not os.path.exists("todos.txt"):
     with open("todos.txt", "w") as file:
         pass
+else:
+    # If the file exists, clean it by removing crossed-out tasks (marked with "~")
+    with open("todos.txt", "r") as file:
+        todos = file.readlines()  # Read all lines
+
+    # Filter out any tasks that are marked as completed (contain "~")
+    cleaned_todos = []  # Initialize an empty list to store non-completed tasks
+
+    # Iterate over each todo item in the todos list
+    for todo in todos:
+        if "~" not in todo:  # Check if the todo does not contain a "~" (not completed)
+            cleaned_todos.append(
+                todo)  # Add the non-completed todo to the cleaned list
+
+    # Overwrite the file with only the non-completed tasks
+    with open("todos.txt", "w") as file:
+        file.writelines(cleaned_todos)
 
 # Set the theme for the GUI
 sg.theme("DarkTeal9")
@@ -94,6 +111,7 @@ while True:
         else:
             sg.popup(
                 "No puedes añadir una tarea vacía")  # Show an error popup if input is empty
+
     elif event == "Editar":
         # Edit the selected todo if one is selected and the input is not empty
         try:
@@ -133,13 +151,6 @@ while True:
     elif event == KEY_TODO_LIST:
         # Update the input box with the selected todo when clicked in the listbox
         window[KEY_TODO_INPUT].update(values[KEY_TODO_LIST][0])
-    elif event == "Return:13":  # Trigger "Añadir" on pressing Enter
-        if values[KEY_TODO_INPUT].strip():
-            todos.append(values[KEY_TODO_INPUT])
-            functions.writefile(todos)
-            update_todo_list(window, todos)
-            clear_input(window)
-            window[KEY_STATUS].update("Tarea añadida con éxito")
     elif event == "Ordenar Ascendente":
         # Sort the todos in ascending order
         todos = functions.sort_todos(todos)
