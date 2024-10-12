@@ -1,4 +1,9 @@
 import functions
+import os
+
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
 
 todos_list = functions.readfile()
 todos = [tarea.strip("\n") for tarea in todos_list]
